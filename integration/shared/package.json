@@ -1,0 +1,15 @@
+{
+  "name": "@agent-pay/shared",
+  "version": "0.1.0",
+  "description": "Shared types and utilities for Agentic Payment System integration layer",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "echo \"No tests for shared package\" && exit 0"
+  },
+  "keywords": ["monad", "payment", "agent", "integration"],
+  "author": "Agentic Payment System Team",
+  "license": "MIT"
+}

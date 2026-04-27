@@ -1,0 +1,25 @@
+{
+  "name": "@agent-pay/websocket",
+  "version": "0.1.0",
+  "description": "WebSocket API for Agentic Payment System real-time updates",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "test": "jest --passWithNoTests"
+  },
+  "dependencies": {
+    "@agent-pay/shared": "file:../shared",
+    "ws": "^8.16.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "@types/ws": "^8.5.10",
+    "typescript": "^5.3.3"
+  },
+  "keywords": ["websocket", "realtime", "agent", "payment", "integration"],
+  "author": "Agentic Payment System Team",
+  "license": "MIT"
+}

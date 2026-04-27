@@ -1,0 +1,53 @@
+# Audit System Backend Dockerfile
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+COPY tsconfig.json ./
+COPY knexfile.js ./
+
+# Install dependencies
+RUN npm config set registry https://registry.npmmirror.com && npm install
+
+# Copy source code
+COPY src/ ./src/
+COPY migrations/ ./migrations/
+COPY seeds/ ./seeds/
+
+# Build TypeScript
+RUN npm run build
+
+# Runtime stage
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+# Copy built application from builder
+COPY --from=builder --chown=nodejs:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
+COPY --from=builder --chown=nodejs:nodejs /app/package*.json ./
+COPY --from=builder --chown=nodejs:nodejs /app/knexfile.js ./
+COPY --from=builder --chown=nodejs:nodejs /app/migrations ./migrations
+COPY --from=builder --chown=nodejs:nodejs /app/seeds ./seeds
+
+# Create logs directory
+RUN mkdir -p /app/logs && chown nodejs:nodejs /app/logs
+
+# Switch to non-root user
+USER nodejs
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "const http = require('http'); const req = http.request({host: 'localhost', port: 3001, path: '/health', timeout: 2000}, (r) => {process.exit(r.statusCode === 200 ? 0 : 1)}); req.on('error', () => process.exit(1)); req.end();"
+
+# Expose port
+EXPOSE 3001
+
+# Start command
+CMD ["node", "dist/index.js"]

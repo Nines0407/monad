@@ -1,0 +1,41 @@
+{
+  "name": "@agent-pay/sdk",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for Agentic Payment System integration",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc && tsup src/index.ts --format cjs,esm --dts --out-dir dist",
+    "dev": "tsc --watch",
+    "test": "jest --passWithNoTests",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@agent-pay/shared": "file:../shared",
+    "axios": "^1.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "typescript": "^5.3.3",
+    "tsup": "^8.0.1"
+  },
+  "keywords": ["sdk", "typescript", "agent", "payment", "monad", "integration"],
+  "author": "Agentic Payment System Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agentic-payment-system/agentic-payment-system.git"
+  },
+  "bugs": {
+    "url": "https://github.com/agentic-payment-system/agentic-payment-system/issues"
+  },
+  "homepage": "https://github.com/agentic-payment-system/agentic-payment-system#readme"
+}

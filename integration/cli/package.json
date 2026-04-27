@@ -1,0 +1,27 @@
+{
+  "name": "@agent-pay/cli",
+  "version": "0.1.0",
+  "description": "CLI tool for Agentic Payment System automation and management",
+  "bin": {
+    "agent-pay": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest --passWithNoTests",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@agent-pay/shared": "file:../shared",
+    "commander": "^11.1.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "typescript": "^5.3.3",
+    "@types/commander": "^2.12.2"
+  },
+  "keywords": ["cli", "agent", "payment", "monad", "automation"],
+  "author": "Agentic Payment System Team",
+  "license": "MIT"
+}
